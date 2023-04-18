@@ -1,0 +1,22 @@
+[
+	{"customerId":"001",
+	"usecaseOne":"Y",
+	"usecaseTwo":"N",
+	"usecaseThree":"N"},
+	{"customerId":"002",
+	"usecaseOne":"N",
+	"usecaseTwo":"Y",
+	"usecaseThree":"N"},
+	{"customerId":"003",
+	"usecaseOne":"N",
+	"usecaseTwo":"N",
+	"usecaseThree":"Y"},
+	{"customerId":"004",
+	"usecaseOne":"Y",
+	"usecaseTwo":"Y",
+	"usecaseThree":"N"},
+	{"customerId":"005",
+	"usecaseOne":"Y",
+	"usecaseTwo":"N",
+	"usecaseThree":"Y"}
+]
