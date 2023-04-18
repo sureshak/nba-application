@@ -50,12 +50,10 @@ public class RecommendationServiceImpl implements RecommendationService {
 		return null;
 	}
 
-	private List<Recommendation> readJsonData() throws JsonParseException, JsonMappingException, IOException {
+	public List<Recommendation> readJsonData() throws JsonParseException, JsonMappingException, IOException {
 		File file = ResourceUtils.getFile("classpath:RecommendationData.json");
 		// Read File Content
 		String content = new String(Files.readAllBytes(file.toPath()));
-		System.out.println(content);
-
 		ObjectMapper objectMapper = new ObjectMapper();
 		JsonNode jsonNode = objectMapper.readTree(content);
 		List<Recommendation> recommendationList = objectMapper.convertValue(jsonNode,
