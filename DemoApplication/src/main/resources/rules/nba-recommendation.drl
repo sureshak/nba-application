@@ -1,0 +1,32 @@
+import com.nba.sample.entity.Recommendation;
+
+global com.nba.sample.model.RuleResponse ruleResponse;
+ 
+dialect "java"
+ 
+rule "case one" salience 30
+activation-group "x"
+    when
+        Recommendation(usecaseOne == "Y")
+    then
+        System.out.println("==========Rule: Case one executed=============");
+        ruleResponse.setSelectedUsecase("use case 1");
+end
+ 
+rule "case two" salience 20
+activation-group "x"
+    when
+        Recommendation(usecaseTwo == "Y")
+    then
+        System.out.println("==========Rule: Case two executed=============");
+        ruleResponse.setSelectedUsecase("use case 2");
+end
+     
+rule "case three" salience 10
+activation-group "x"
+    when
+        Recommendation(usecaseThree == "Y")
+    then
+        System.out.println("==========Rule: Case three executed=============");
+        ruleResponse.setSelectedUsecase("use case 3");
+end

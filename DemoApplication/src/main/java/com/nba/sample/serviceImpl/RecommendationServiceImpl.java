@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
@@ -17,6 +18,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nba.sample.entity.Recommendation;
+import com.nba.sample.model.RuleResponse;
+import com.nba.sample.ruleengine.RuleUtil;
 import com.nba.sample.service.RecommendationService;
 
 /**
@@ -25,6 +28,9 @@ import com.nba.sample.service.RecommendationService;
  */
 @Service
 public class RecommendationServiceImpl implements RecommendationService {
+	
+	@Autowired
+	RuleUtil ruleUtil;
 
 	@Override
 	public Object getRecommendation(String customerId) {
@@ -33,15 +39,17 @@ public class RecommendationServiceImpl implements RecommendationService {
 			result = readJsonData();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}		
 		if (result != null) {
 			for (Recommendation recommendation : result) {
 				if (customerId.equalsIgnoreCase(recommendation.getCustomerId())) {
-					if (recommendation.getUsecaseOne().equalsIgnoreCase("Y")) {
+					RuleResponse ruleResponse = ruleUtil.executeRule(recommendation);
+					System.out.println(ruleResponse.toString());
+					if (ruleResponse.getSelectedUsecase().equalsIgnoreCase("use case 1")) {
 						return "Cross-Sell Umbrella";
-					} else if (recommendation.getUsecaseTwo().equalsIgnoreCase("Y")) {
+					} else if (ruleResponse.getSelectedUsecase().equalsIgnoreCase("use case 2")) {
 						return "UW Misclassification";
-					} else if (recommendation.getUsecaseThree().equalsIgnoreCase("Y")) {
+					} else if (ruleResponse.getSelectedUsecase().equalsIgnoreCase("use case 3")) {
 						return "Differentiated Service Handling";
 					}
 				}
