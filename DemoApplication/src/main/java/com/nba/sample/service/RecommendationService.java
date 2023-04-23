@@ -1,11 +1,13 @@
 package com.nba.sample.service;
 
+import com.nba.sample.model.RecommendationResponse;
+
 /**
  * @author Suresh A K
  *
  */
 public interface RecommendationService {
 	
-	Object getRecommendation(String customerId);
+	RecommendationResponse getRecommendation(String customerId);
 
 }

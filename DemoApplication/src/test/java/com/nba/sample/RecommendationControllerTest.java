@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 import com.nba.sample.controller.RecommendationController;
+import com.nba.sample.model.RecommendationResponse;
 import com.nba.sample.service.RecommendationService;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,8 +27,10 @@ public class RecommendationControllerTest {
 
 	@Test
 	public void testGetRecommendation() {
-		when(recommendationService.getRecommendation(anyString())).thenReturn("test data");
-		ResponseEntity<Object> responseEntity = recommendationController.getRecommendation("1234");
-		assertThat(responseEntity.getBody()).isEqualTo("test data");
+		RecommendationResponse recommendationResponse=new RecommendationResponse();
+		recommendationResponse.setMessage("test data");	
+		when(recommendationService.getRecommendation(anyString())).thenReturn(recommendationResponse);
+		ResponseEntity<RecommendationResponse> responseEntity = recommendationController.getRecommendation("1234");
+		assertThat(responseEntity.getBody().getMessage()).isEqualTo("test data");
 	}
 }

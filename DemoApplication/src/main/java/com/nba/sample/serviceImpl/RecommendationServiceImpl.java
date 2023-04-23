@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nba.sample.entity.Recommendation;
+import com.nba.sample.model.RecommendationResponse;
 import com.nba.sample.model.RuleResponse;
 import com.nba.sample.ruleengine.RuleUtil;
 import com.nba.sample.service.RecommendationService;
@@ -33,8 +34,9 @@ public class RecommendationServiceImpl implements RecommendationService {
 	RuleUtil ruleUtil;
 
 	@Override
-	public Object getRecommendation(String customerId) {
-		List<Recommendation> result = new ArrayList<>();
+	public RecommendationResponse getRecommendation(String customerId) {
+		List<Recommendation> result = new ArrayList<>(); 
+		RecommendationResponse recommendationResponse = new RecommendationResponse();
 		try {
 			result = readJsonData();
 		} catch (Exception e) {
@@ -46,11 +48,14 @@ public class RecommendationServiceImpl implements RecommendationService {
 					RuleResponse ruleResponse = ruleUtil.executeRule(recommendation);
 					System.out.println(ruleResponse.toString());
 					if (ruleResponse.getSelectedUsecase().equalsIgnoreCase("use case 1")) {
-						return "Cross-Sell Umbrella";
+						recommendationResponse.setMessage("Cross-Sell Umbrella");
+						return recommendationResponse;
 					} else if (ruleResponse.getSelectedUsecase().equalsIgnoreCase("use case 2")) {
-						return "UW Misclassification";
+						recommendationResponse.setMessage("UW Misclassification");
+						return recommendationResponse;
 					} else if (ruleResponse.getSelectedUsecase().equalsIgnoreCase("use case 3")) {
-						return "Differentiated Service Handling";
+						recommendationResponse.setMessage("Differentiated Service Handling");
+						return recommendationResponse;
 					}
 				}
 			}

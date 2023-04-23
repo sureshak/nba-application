@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nba.sample.model.RecommendationResponse;
 import com.nba.sample.service.RecommendationService;
 
 /**
@@ -24,7 +25,7 @@ public class RecommendationController {
 	RecommendationService recommendationService;
 	
 	@GetMapping(value="/recommendation/{customerId}")
-	public ResponseEntity<Object> getRecommendation(@PathVariable String customerId) {
+	public ResponseEntity<RecommendationResponse> getRecommendation(@PathVariable String customerId) {
 		return new ResponseEntity<>(recommendationService.getRecommendation(customerId), HttpStatus.OK);
 	}
 
