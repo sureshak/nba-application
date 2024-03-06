@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.nba.sample.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +23,7 @@ public class RecommendationController {
 	
 	@GetMapping(value="/recommendation/{customerId}")
 	public ResponseEntity<RecommendationResponse> getRecommendation(@PathVariable String customerId) {
+		System.out.println("test command");
 		return new ResponseEntity<>(recommendationService.getRecommendation(customerId), HttpStatus.OK);
 	}
 
